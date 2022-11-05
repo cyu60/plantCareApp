@@ -10,13 +10,21 @@ datasource db {
   provider             = "mysql"
   url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
-  // provider = "sqlite"
 }
 
-model Example {
-  id      String  @id @default(cuid())
-  name    String
-  checked Boolean
-  // createdAt DateTime @default(now())
-  // updatedAt DateTime @updatedAt
+model Plant {
+  id                        Int           @id @default(autoincrement())
+  name                      String
+  image                     String
+  waterFrequencyDescription String
+  waterIntervalDays         Int
+  sunlight                  Int
+  description               String
+  category                  PlantCategory
+}
+
+// Convention is to have caps
+enum PlantCategory {
+  LOW_MAINTENANCE
+  HIGH_MAINTENANCE
 }
