@@ -20,6 +20,7 @@ model Plant {
   waterIntervalDays         Int
   sunlight                  Int
   description               String
+  lastWaterDate             DateTime      @default(now())
   category                  PlantCategory
 }
 

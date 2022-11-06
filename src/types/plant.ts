@@ -10,6 +10,7 @@ const ZodPlant = z.object({
   waterIntervalDays: z.number(),
   sunlight: z.number(),
   description: z.string(),
+  lastWaterDate: z.date(),
   category: PlantTypesEnum
 });
 

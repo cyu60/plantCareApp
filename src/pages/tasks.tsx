@@ -6,64 +6,46 @@ import { Plant, PlantTypesEnum } from "../types/plant";
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { useRouter } from "next/router";
 
-const AddPlantPage: NextPage = () => {
+const TaskPage: NextPage = () => {
   const router = useRouter();
-  const { id } = router.query;
+  // const { id } = router.query;
   //   const router = useRouter();
 
-  // const plant = trpc.plant.get.useQuery(Number(id));
-  const addPlantMutation = trpc.plant.add.useMutation();
-
-  interface IFormInput {
-    name: string;
-  }
-
-  const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    // need to check if the name is in the db!
-
-    // if not in db, throw error!
-
-    // else
-    await addPlant(data.name);
-    router.push("/");
-  };
+  const plant = trpc.plant.getAll.useQuery();
+  // const TaskMutation = trpc.plant.add.useMutation();
 
   //   const updatePlantMutation = trpc.plant.update.useMutation();
   // should take in a name
-  const addPlant = async (name: string) => {
-    const plant: Plant = {
-      name: "Plant A",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
-      waterFrequencyDescription: "Every 1-2 weeks",
-      waterIntervalDays: 10,
-      sunlight: 5,
-      description: "Cool plant",
-      lastWaterDate: new Date(),
-      category: PlantTypesEnum.Enum.LOW_MAINTENANCE,
-    };
+  // const Task = async (name: string) => {
+  //   const plant: Plant = {
+  //     name: "Plant A",
+  //     image:
+  //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
+  //     waterFrequencyDescription: "Every 1-2 weeks",
+  //     waterIntervalDays: 10,
+  //     sunlight: 5,
+  //     description: "Cool plant",
+  //     category: PlantTypesEnum.Enum.LOW_MAINTENANCE,
+  //   };
 
-    const plantWithid = await addPlantMutation.mutateAsync({ plant });
-    // invalidatePlants();
-    // setReceivedPlant(plantWithid);
-  };
+  //   const plantWithid = await TaskMutation.mutateAsync({ plant });
+  //   // invalidatePlants();
+  //   // setReceivedPlant(plantWithid);
+  // };
 
   return (
-    <>
-      <h1 className="text-9xl">Add Plant</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("name")} />
-        <button
-          type="submit"
-          className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
-          // onClick={() => updatePlant("test", )}
-        >
-          Add Plant
-        </button>
-      </form>
-    </>
+    <></>
+    // <form onSubmit={handleSubmit(onSubmit)}>
+    //   <input {...register("name")} />
 
+    //   <button
+    //     type="submit"
+    //     className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
+    //     // onClick={() => updatePlant("test", )}
+    //   >
+    //     Add Plant
+    //   </button>
+    // </form>
     //   <div className="flex justify-between">
     //     <img src={plant.data?.image}></img>
     //     <h1 className="text-xl">{plant.data?.name}</h1>
@@ -91,4 +73,4 @@ const AddPlantPage: NextPage = () => {
   );
 };
 
-export default AddPlantPage;
+export default TaskPage;

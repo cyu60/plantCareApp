@@ -10,9 +10,9 @@ import { Plant } from "../types/plant";
 const PlantCard: React.FC<{ plant: Plant }> = ({ plant }) => {
   return (
     <>
-      <div className="card-compact card w-96 bg-base-100 shadow-xl">
+      <div className="card-compact card w-max bg-base-100 shadow-xl">
         <figure>
-          <Image src={plant.image} alt={plant.name} width={500} height={100} />
+          <Image src={plant.image} alt={plant.name} width={80} height={100} />
         </figure>
         <div className="card-body">
           <h2 className="card-title">{plant.name}</h2>
