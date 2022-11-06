@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { trpc } from "../utils/trpc";
 import { Plant, PlantTypesEnum } from "../types/plant";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { plantNames } from "../assets/plantsInfo";
+import { findCategory, plantNames, plantsInfo } from "../assets/plantsInfo";
 // import { useRouter } from "next/router";
 
 const AddPage: NextPage = () => {
@@ -33,19 +33,28 @@ const AddPage: NextPage = () => {
   //   const updatePlantMutation = trpc.plant.update.useMutation();
   // should take in a name
   const addPlant = async (name: string) => {
-    const plant: Plant = {
-      name: "Plant A",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
-      waterFrequencyDescription: "Every 1-2 weeks",
-      waterIntervalDays: 10,
-      sunlight: 5,
-      description: "Cool plant",
-      lastWaterDate: new Date(),
-      category: PlantTypesEnum.Enum.LOW_MAINTENANCE,
-    };
+      const selectedPlant = plantsInfo.filter(e => e.name === name)[0]
+      console.log(name, selectedPlant)
+    
+    if (selectedPlant) {
+        const plant: Plant = {
+            name: selectedPlant.name,
+            image: selectedPlant.image,
+            // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
+            waterFrequencyDescription: selectedPlant.waterFrequencyDescription,
+            // "Every 1-2 weeks",
+            waterIntervalDays: selectedPlant.waterIntervalDays,
+            sunlight: 5,
+            description: selectedPlant.description,
+            lastWaterDate: new Date(),
+            category: findCategory(selectedPlant.category),
+        };
+        
+        const plantWithid = await addPlantMutation.mutateAsync({ plant });
+    } 
+    // else, should not reach here
+    // or plan not recognised
 
-    const plantWithid = await addPlantMutation.mutateAsync({ plant });
     // invalidatePlants();
     // setReceivedPlant(plantWithid);
   };

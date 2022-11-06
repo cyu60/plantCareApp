@@ -144,11 +144,24 @@ const plantsRaw = [
 ];
 const categoryMap =
   {
-    "Low Maintenance": PlantTypesEnum.Values.LOW_MAINTENANCE,
-    "Moderate Maintenance": PlantTypesEnum.Values.MID_MAINTENANCE,
-    "High Maintenance": PlantTypesEnum.Values.HIGH_MAINTENANCE,
+    "Low Maintenance": PlantTypesEnum.Enum.LOW_MAINTENANCE,
+    "Moderate Maintenance": PlantTypesEnum.Enum.MID_MAINTENANCE,
+    "High Maintenance": PlantTypesEnum.Enum.HIGH_MAINTENANCE,
   } || null;
 
+export const findCategory = (category: string) => {
+  switch (category) {
+    case "Low Maintenance":
+      return PlantTypesEnum.Enum.LOW_MAINTENANCE;
+    case "Moderate Maintenance":
+      return PlantTypesEnum.Enum.MID_MAINTENANCE;
+    case "High Maintenance":
+      return PlantTypesEnum.Enum.HIGH_MAINTENANCE;
+
+    default:
+      return PlantTypesEnum.Enum.LOW_MAINTENANCE;
+  }
+};
 const plantsInfo = plantsRaw.map(
   (e) => ({
     //  : {
@@ -158,7 +171,9 @@ const plantsInfo = plantsRaw.map(
     waterIntervalDays: e["Water Int"],
     sunlight: e.Sunlight,
     description: e.Description,
-    category: e.Category.toUpperCase().replace(" ", "_"),
+    category: e.Category,
+    // category: findCategory(e.Category),
+    // category: e.Category.toUpperCase().replace(" ", "_"),
     //   category: categoryMap[e.Category]
     //    e.Category,
     // }
