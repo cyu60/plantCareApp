@@ -8,6 +8,7 @@ import { findCategory, plantNames, plantsInfo } from "../assets/plantsInfo";
 import CameraCapture from "../components/CameraCapture";
 import Webcam from "react-webcam";
 import { BsFillCameraFill } from "react-icons/bs";
+import Title from "../components/Title";
 // import { useRouter } from "next/router";
 
 const AddPage: NextPage = () => {
@@ -66,7 +67,7 @@ const AddPage: NextPage = () => {
 
   return (
     <div className="space-y-4">
-      <h1 className="pt-10 text-9xl">Add Plant</h1>
+      <Title>Add Plant</Title>
       <form onSubmit={handleSubmit(onSubmit)} className=" space-x-4">
         {/* <input {...register("name")} /> */}
         <select {...register("name")} className="select w-full max-w-xs">

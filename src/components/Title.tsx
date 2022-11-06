@@ -11,7 +11,7 @@ import Link from "next/link";
 const Title: React.FC<{ children: string }> = ({ children }) => {
   return (
     <>
-      <h1 className="text-9xl pt-10">
+      <h1 className="text-6xl lg:text-9xl pt-10">
         {children}
       </h1>
     </>

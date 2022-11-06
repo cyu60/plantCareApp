@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Plant } from "../types/plant";
 import Link from "next/link";
+import { HiMenu } from "react-icons/hi"; // > HiChevronRight 
 
 // type CardProps = {
 //   plant: Plant;
@@ -15,6 +16,14 @@ const SideBar: React.FC<{ children: JSX.Element }> = ({ children }) => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex-col items-center justify-center">
           {/* <!-- Page content here --> */}
+          <div className="pt-6">
+            <label
+              htmlFor="my-drawer-2"
+              className="drawer-button text-4xl btn btn-ghost lg:hidden "
+            >
+              <HiMenu />
+            </label>
+          </div>
           {children}
         </div>
         <div className="drawer-side">
@@ -38,12 +47,6 @@ const SideBar: React.FC<{ children: JSX.Element }> = ({ children }) => {
             </li>
           </ul>
         </div>
-        <label
-          htmlFor="my-drawer-2"
-          className="btn-primary drawer-button btn lg:hidden"
-        >
-          Open drawer
-        </label>
       </div>
     </>
     // <>

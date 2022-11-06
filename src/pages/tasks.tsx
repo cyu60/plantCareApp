@@ -5,6 +5,7 @@ import { trpc } from "../utils/trpc";
 import { Plant, PlantTypesEnum } from "../types/plant";
 import { useForm, SubmitHandler } from "react-hook-form";
 import TaskCard from "../components/TaskCard";
+import Title from "../components/Title";
 // import { useRouter } from "next/router";
 
 const TaskPage: NextPage = () => {
@@ -38,7 +39,7 @@ const TaskPage: NextPage = () => {
     <>
     <div className="space-y-4 place-content-center">
 
-    <h1 className="text-9xl pt-10">Plants to water</h1>
+    <Title>Plants to water</Title>
     {/* <h1 className="text-9xl">Plant to water</h1> */}
 
 

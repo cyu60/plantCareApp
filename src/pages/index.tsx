@@ -11,6 +11,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import PlantCard from "../components/PlantCard";
 import { router } from "../server/trpc/trpc";
 import { useRouter } from "next/router";
+import PlantGrid from "../components/PlantGrid";
+import Title from "../components/Title";
 
 interface PlantWithId extends Plant {
   id: number;
@@ -83,7 +85,7 @@ const Home: NextPage = () => {
       <main className="">
         {/* mx-auto my-12 max-w-3xl */}
         <div className=" justify-between space-y-4">
-          <h1 className="text-9xl pt-10">My plant list</h1>
+          <Title>My plant list</Title>
 
           {/* <h2 className=" font-semibold">My plant list</h2> */}
           <button
@@ -107,39 +109,43 @@ const Home: NextPage = () => {
       <input className="input w-full max-w-xs" {...register("name")} /> */}
 
           {/* <input type="text" ref={newName}></input> */}
-          <div className="grid grid-cols-4 gap-4">
-            {!!allPlants &&
-              allPlants.data?.map((e) => (
-                <>
-                  <Link href={"/plants/" + e.id}>
-                    <PlantCard plant={e}></PlantCard>
-                  </Link>
+          {/* <div className="grid grid-cols-4 gap-4"> */}
+          <PlantGrid>
+            <>
+              {!!allPlants &&
+                allPlants.data?.map((e) => (
+                  <>
+                    <Link href={"/plants/" + e.id}>
+                      <PlantCard plant={e}></PlantCard>
+                    </Link>
 
-                  {/* <button
+                    {/* <button
                     type="submit"
                     className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
                     onClick={() => updatePlant("test", e.id)}
                     >
                     Update plant
                   </button> */}
-                  {/* <form onSubmit={handleSubmit(onSubmit)> */}
-                  {/* <Link href={"/plants/" + e.id}>
+                    {/* <form onSubmit={handleSubmit(onSubmit)> */}
+                    {/* <Link href={"/plants/" + e.id}>
                   <pre>{JSON.stringify(e, null, 2)}</pre>
                   </Link>
                   <input {...register("name")} />
                   
                 */}
-                  {/* // </form> */}
-                  {/* <button
+                    {/* // </form> */}
+                    {/* <button
                   type="button"
                   className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
                   onClick={() => deletePlant(e.id)}
                   >
                   Delete plant
                 </button> */}
-                </>
-              ))}
-          </div>
+                  </>
+                ))}
+            </>
+          </PlantGrid>
+          {/* </div> */}
         </div>
         {/* {!!allPlants && <pre>{JSON.stringify(allPlants, null, 2)}</pre>} */}
         {/* {!!storedPlant && <pre>{JSON.stringify(storedPlant, null, 2)}</pre>}
