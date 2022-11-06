@@ -11,12 +11,12 @@ type CategoryProps = {
 const PlantCard: React.FC<{ category: CategoryProps }> = ({ category }) => {
   return (
     <>
-      <div className="card image-full w-96 bg-base-100 shadow-xl">
+      <div className="card image-full bg-base-100 shadow-xl">
         <figure>
           <Image src={category.image} alt={category.name} width={80} height={100}/>
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{category.name}</h2>
+          <h2 className="card-title">{category.name + " Plants"} </h2>
           {/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
           <div className="card-actions justify-end">
             {/* <button className="btn-primary btn">Buy Now</button> */}

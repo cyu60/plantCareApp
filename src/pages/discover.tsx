@@ -5,6 +5,7 @@ import { trpc } from "../utils/trpc";
 import { Plant, PlantTypesEnum } from "../types/plant";
 import { useForm, SubmitHandler } from "react-hook-form";
 import CategoryCard from "../components/CategoryCard";
+import Link from "next/link";
 // import { useRouter } from "next/router";
 
 const FindPlantPage: NextPage = () => {
@@ -52,16 +53,19 @@ const FindPlantPage: NextPage = () => {
   // Categories should be retrieved from db!!
   const categories = [
     {
+      url: "low",
       name: "Low Maintenance",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
     },
     {
+      url: "mid",
       name: "Moderate Maintenance",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
     },
     {
+      url: "high",
       name: "High Maintenance",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
@@ -78,7 +82,9 @@ const FindPlantPage: NextPage = () => {
         <h1 className="pt-10 text-9xl">Categories</h1>
         <div className="grid grid-cols-4 gap-4">
           {categories.map((e) => (
-            <CategoryCard key={e.name} category={e}></CategoryCard>
+            <Link key={e.name} href={"/categories/" + e.url}>
+              <CategoryCard key={e.name} category={e}></CategoryCard>
+            </Link>
           ))}
         </div>
       </div>

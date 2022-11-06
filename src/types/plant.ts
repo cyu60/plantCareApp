@@ -16,3 +16,4 @@ const ZodPlant = z.object({
 
 export default ZodPlant;
 export type Plant = z.infer<typeof ZodPlant>;
+// export type PlantDisplay = z.infer<typeof ZodPlant>;
