@@ -7,6 +7,8 @@ import { trpc } from "../utils/trpc";
 
 import type { Plant } from "../types/plant";
 import { PlantTypesEnum } from "../types/plant";
+import { useForm, SubmitHandler } from "react-hook-form";
+import PlantCard from "../components/PlantCard";
 
 interface PlantWithId extends Plant {
   id: number;
@@ -20,6 +22,18 @@ const Home: NextPage = () => {
   const allPlants = trpc.plant.getAll.useQuery();
   const updatePlantMutation = trpc.plant.update.useMutation();
   const deletePlantMutation = trpc.plant.delete.useMutation();
+  const utils = trpc.useContext();
+
+  interface IFormInput {
+    name: string;
+  }
+
+  const { register, handleSubmit } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  // const onSubmit: SubmitHandler<IFormInput> = (data) => data.name;
+
+  // need to add some information -- on success invalidate getAll query
+  const invalidatePlants = () => utils.plant.getAll.invalidate();
 
   // should take in a name
   const updatePlant = async (newPlantName: string, id: number) => {
@@ -27,10 +41,12 @@ const Home: NextPage = () => {
       name: newPlantName,
       id,
     });
+    invalidatePlants();
     return updatedPlantWithId;
   };
   const deletePlant = async (id: number) => {
     const deletedPlantWithId = await deletePlantMutation.mutateAsync(id);
+    invalidatePlants();
     return deletePlantMutation;
   };
 
@@ -47,7 +63,7 @@ const Home: NextPage = () => {
     };
 
     const plantWithid = await addPlantMutation.mutateAsync({ plant });
-
+    invalidatePlants();
     setReceivedPlant(plantWithid);
   };
 
@@ -71,41 +87,56 @@ const Home: NextPage = () => {
             Add Plant
           </button>
         </div>
+
         {/* <input type="text"></input> */}
-        <input
+        {/* <input
           type="text"
           placeholder="Type here"
           ref={newName}
           className="input w-full max-w-xs"
-        />
-        {/* <input type="text" ref={newName}></input> */}
-        {!!allPlants &&
-          allPlants.data?.map((e) => (
-            <>
-              <Link href={"/plants/" + e.id}>
-                <pre>{JSON.stringify(e, null, 2)}</pre>
-              </Link>
-              <button
-                type="button"
-                className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
-                onClick={() => deletePlant(e.id)}
-              >
-                Delete plant
-              </button>
-              <button
-                type="button"
-                className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
-                onClick={() => updatePlant("This is cool", e.id)}
-              >
-                Update plant
-              </button>
-            </>
-          ))}
-        {/* {!!allPlants && <pre>{JSON.stringify(allPlants, null, 2)}</pre>} */}
-        {/* {!!storedPlant && <pre>{JSON.stringify(storedPlant, null, 2)}</pre>}
+        /> */}
+        <label>Nickname</label>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input {...register("name")} />
+
+          {/* <input type="text" ref={newName}></input> */}
+          <div class="grid grid-cols-4 gap-4">
+            {!!allPlants &&
+              allPlants.data?.map((e) => (
+                <>
+                  <Link href={"/plants/" + e.id}>
+                    <PlantCard plant={e}></PlantCard>
+                  </Link>
+                  {/* <form onSubmit={handleSubmit(onSubmit)> */}
+                  {/* <Link href={"/plants/" + e.id}>
+                  <pre>{JSON.stringify(e, null, 2)}</pre>
+                  </Link>
+                  <button
+                  type="button"
+                  className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
+                  onClick={() => deletePlant(e.id)}
+                  >
+                  Delete plant
+                  </button>
+                  <input {...register("name")} />
+                  
+                  <button
+                  type="submit"
+                  className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
+                  onClick={() => updatePlant("test", e.id)}
+                  >
+                  Update plant
+                </button> */}
+                  {/* </form> */}
+                </>
+              ))}
+          </div>
+          {/* {!!allPlants && <pre>{JSON.stringify(allPlants, null, 2)}</pre>} */}
+          {/* {!!storedPlant && <pre>{JSON.stringify(storedPlant, null, 2)}</pre>}
         {!!receivedPlant && <pre>{JSON.stringify(receivedPlant, null, 2)}</pre>} */}
 
-        {/* <h2 className="text-2x1 font-semibold">All </h2> */}
+          {/* <h2 className="text-2x1 font-semibold">All </h2> */}
+        </form>
       </main>
     </>
   );
