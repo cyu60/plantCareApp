@@ -96,23 +96,22 @@ const AddPage: NextPage = () => {
         >
           <BsFillCameraFill></BsFillCameraFill>Use Camera
         </button>
-        {!!showCamera && (
+        <Webcam height={720} screenshotFormat="image/jpeg" width={1280} />
+        {!!showCamera && plantsInfo && (
           <>
-            <button
-              type="submit"
-              className="flex space-x-5 rounded-md bg-orange-500 p-5 text-4xl text-white transition hover:bg-orange-600"
-              // onClick={() => addPlant(plantsInfo[Math.round(Math.random() * plantsInfo.length]))}
-            >
-              Take a photo!{" "}
-            </button>
-            <Webcam height={720} screenshotFormat="image/jpeg" width={1280} />
-          </>
-        )}
-      </form>
-
-      {/* <CameraCapture className="w-full h-screen"></CameraCapture> */}
-    </div>
-
+            {/* <button className="flex space-x-5 rounded-md bg-orange-500 p-5 text-4xl text-white transition hover:bg-orange-600" onClick={() => addPlant(plantsInfo[2].name))}>
+              Take a photo!
+              </button> */}
+              {/* <button>Take a photo!</button> */}
+            </>
+              )}
+              {/* <button className="flex space-x-5 rounded-md bg-orange-500 p-5 text-4xl text-white transition hover:bg-orange-600" onClick={() => addPlant(plantsInfo[Math.round(Math.random() * plantsInfo.length)].name))}> */}
+              </form>
+              
+              {/* <CameraCapture className="w-full h-screen"></CameraCapture> */}
+              </div>
+              
+              //   type="submit"
     //   <div className="flex justify-between">
     //     <img src={plant.data?.image}></img>
     //     <h1 className="text-xl">{plant.data?.name}</h1>

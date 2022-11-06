@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Title from "../../components/Title";
 import CountDown from "../../components/CountDown";
+import { getDisplayCategory } from "../../utils/helper";
 
 const PlantDetailPage: NextPage = () => {
   const router = useRouter();
@@ -47,18 +48,18 @@ const PlantDetailPage: NextPage = () => {
     return deletePlantMutation;
   };
 
-  const getCategory = (category: string) => {
-    switch (category) {
-      case "LOW_MAINTENANCE":
-        return "Low Maintenance";
-      case "MID_MAINTENANCE":
-        return "Moderate Maintenance";
-      case "HIGH_MAINTENANCE":
-        return "High Maintenance";
-      default:
-        return null;
-    }
-  };
+  // const getDisplayCategory = (category: string) => {
+  //   switch (category) {
+  //     case "LOW_MAINTENANCE":
+  //       return "Low Maintenance";
+  //     case "MID_MAINTENANCE":
+  //       return "Moderate Maintenance";
+  //     case "HIGH_MAINTENANCE":
+  //       return "High Maintenance";
+  //     default:
+  //       return null;
+  //   }
+  // };
   
   return (
     // place-content-center
@@ -103,7 +104,7 @@ const PlantDetailPage: NextPage = () => {
               <div className="stat">
                 <div className="stat-title">Category</div>
                 <div className="stat-value">
-                  {getCategory(plant.data.category)}
+                  {getDisplayCategory(plant.data.category)}
                 </div>
               </div>
               <div className="stat">
