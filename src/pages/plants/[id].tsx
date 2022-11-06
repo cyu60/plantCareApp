@@ -47,13 +47,26 @@ const PlantDetailPage: NextPage = () => {
     return deletePlantMutation;
   };
 
+  const getCategory = (category: string) => {
+    switch (category) {
+      case "LOW_MAINTENANCE":
+        return "Low Maintenance";
+      case "MID_MAINTENANCE":
+        return "Moderate Maintenance";
+      case "HIGH_MAINTENANCE":
+        return "High Maintenance";
+      default:
+        return null;
+    }
+  };
+  
   return (
     // place-content-center
     <>
       {!!plant.data && (
         <div className="place-content-center content-center justify-center">
           <Image
-            className="w-full h-48 object-cover"
+            className="h-48 w-full object-cover"
             src={plant.data.image}
             alt={plant.data.name}
             width={500}
@@ -89,7 +102,9 @@ const PlantDetailPage: NextPage = () => {
 
               <div className="stat">
                 <div className="stat-title">Category</div>
-                <div className="stat-value">{plant.data.category}</div>
+                <div className="stat-value">
+                  {getCategory(plant.data.category)}
+                </div>
               </div>
               <div className="stat">
                 <div className="stat-title">Sunlight</div>

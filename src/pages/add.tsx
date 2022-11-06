@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { trpc } from "../utils/trpc";
 import { Plant, PlantTypesEnum } from "../types/plant";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { findCategory, plantNames, plantsInfo } from "../assets/plantsInfo";
+import CameraCapture from "../components/CameraCapture";
+import Webcam from "react-webcam";
+import { BsFillCameraFill } from "react-icons/bs";
 // import { useRouter } from "next/router";
 
 const AddPage: NextPage = () => {
@@ -12,6 +15,7 @@ const AddPage: NextPage = () => {
   const { id } = router.query;
   //   const router = useRouter();
 
+  const [showCamera, setShowCamera] = useState<boolean>(false);
   // const plant = trpc.plant.get.useQuery(Number(id));
   const addPlantMutation = trpc.plant.add.useMutation();
 
@@ -28,30 +32,31 @@ const AddPage: NextPage = () => {
     // else
     await addPlant(data.name);
     router.push("/");
+    // need to inform the user that they added a plant?
   };
 
   //   const updatePlantMutation = trpc.plant.update.useMutation();
   // should take in a name
   const addPlant = async (name: string) => {
-      const selectedPlant = plantsInfo.filter(e => e.name === name)[0]
-      console.log(name, selectedPlant)
-    
+    const selectedPlant = plantsInfo.filter((e) => e.name === name)[0];
+    console.log(name, selectedPlant);
+
     if (selectedPlant) {
-        const plant: Plant = {
-            name: selectedPlant.name,
-            image: selectedPlant.image,
-            // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
-            waterFrequencyDescription: selectedPlant.waterFrequencyDescription,
-            // "Every 1-2 weeks",
-            waterIntervalDays: selectedPlant.waterIntervalDays,
-            sunlight: 5,
-            description: selectedPlant.description,
-            lastWaterDate: new Date(),
-            category: findCategory(selectedPlant.category),
-        };
-        
-        const plantWithid = await addPlantMutation.mutateAsync({ plant });
-    } 
+      const plant: Plant = {
+        name: selectedPlant.name,
+        image: selectedPlant.image,
+        // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
+        waterFrequencyDescription: selectedPlant.waterFrequencyDescription,
+        // "Every 1-2 weeks",
+        waterIntervalDays: selectedPlant.waterIntervalDays,
+        sunlight: 5,
+        description: selectedPlant.description,
+        lastWaterDate: new Date(),
+        category: findCategory(selectedPlant.category),
+      };
+
+      const plantWithid = await addPlantMutation.mutateAsync({ plant });
+    }
     // else, should not reach here
     // or plan not recognised
 
@@ -61,21 +66,23 @@ const AddPage: NextPage = () => {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-9xl pt-10">Add Plant</h1>
+      <h1 className="pt-10 text-9xl">Add Plant</h1>
       <form onSubmit={handleSubmit(onSubmit)} className=" space-x-4">
         {/* <input {...register("name")} /> */}
         <select {...register("name")} className="select w-full max-w-xs">
           <option disabled selected>
             Pick your plant
           </option>
-          {plantNames.map((e, i) => <option key={i}>{e}</option>)}
+          {plantNames.map((e, i) => (
+            <option key={i}>{e}</option>
+          ))}
           {/* <option>Homer</option>
           <option>Marge</option>
           <option>Bart</option>
           <option>Lisa</option>
           <option>Maggie</option> */}
-        </select> 
-        
+        </select>
+
         <button
           type="submit"
           className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
@@ -83,7 +90,27 @@ const AddPage: NextPage = () => {
         >
           Add Plant
         </button>
+        <button
+          className="flex space-x-5 rounded-md bg-green-500 p-5 text-4xl text-white transition hover:bg-green-600"
+          onClick={() => setShowCamera(!showCamera)}
+        >
+          <BsFillCameraFill></BsFillCameraFill>Use Camera
+        </button>
+        {!!showCamera && (
+          <>
+            <button
+              type="submit"
+              className="flex space-x-5 rounded-md bg-orange-500 p-5 text-4xl text-white transition hover:bg-orange-600"
+              // onClick={() => addPlant(plantsInfo[Math.round(Math.random() * plantsInfo.length]))}
+            >
+              Take a photo!{" "}
+            </button>
+            <Webcam height={720} screenshotFormat="image/jpeg" width={1280} />
+          </>
+        )}
       </form>
+
+      {/* <CameraCapture className="w-full h-screen"></CameraCapture> */}
     </div>
 
     //   <div className="flex justify-between">
