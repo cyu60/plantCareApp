@@ -27,5 +27,6 @@ model Plant {
 // Convention is to have caps
 enum PlantCategory {
   LOW_MAINTENANCE
+  MID_MAINTENANCE
   HIGH_MAINTENANCE
 }

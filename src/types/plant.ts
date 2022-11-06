@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { PlantCategory } from '@prisma/client';
 
-export const PlantTypesEnum = z.enum([PlantCategory.LOW_MAINTENANCE, PlantCategory.HIGH_MAINTENANCE]);
+export const PlantTypesEnum = z.enum([PlantCategory.LOW_MAINTENANCE,PlantCategory.MID_MAINTENANCE, PlantCategory.HIGH_MAINTENANCE]);
 
 const ZodPlant = z.object({
   name: z.string(),

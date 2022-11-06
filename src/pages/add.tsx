@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { trpc } from "../utils/trpc";
 import { Plant, PlantTypesEnum } from "../types/plant";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { plantNames } from "../assets/plantsInfo";
 // import { useRouter } from "next/router";
 
 const AddPage: NextPage = () => {
@@ -53,7 +54,19 @@ const AddPage: NextPage = () => {
     <>
       <h1 className="text-9xl">Add Plant</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("name")} />
+        {/* <input {...register("name")} /> */}
+        <select {...register("name")} className="select w-full max-w-xs">
+          <option disabled selected>
+            Pick your plant
+          </option>
+          {plantNames.map((e, i) => <option key={i}>{e}</option>)}
+          {/* <option>Homer</option>
+          <option>Marge</option>
+          <option>Bart</option>
+          <option>Lisa</option>
+          <option>Maggie</option> */}
+        </select> 
+        
         <button
           type="submit"
           className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
