@@ -44,6 +44,19 @@ export const plantRouter = router({
         },
       });
     }),
+  water: publicProcedure
+    .input(z.object({ id: z.number()}))
+    .mutation(async ({ input }) => {
+      //   update: publicProcedure.input(z.object(z.number(), z.string())).query(async({input: {id, name}}) => {
+      return await prisma.plant.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          lastWaterDate: new Date(),
+        },
+      });
+    }),
   delete: publicProcedure.input(z.number()).mutation(async ({ input: id }) => {
     return await prisma.plant.delete({
       where: { id },

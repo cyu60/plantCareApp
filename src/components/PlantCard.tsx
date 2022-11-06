@@ -18,7 +18,7 @@ const PlantCard: React.FC<{ plant: Plant }> = ({ plant }) => {
           <h2 className="card-title">{plant.name}</h2>
           <div className="badge-secondary badge">{plant.category}</div>
 
-          <p>{plant.description}</p>
+          {/* <p>{plant.description}</p> */}
           <div className="card-actions justify-end">
             {/* <button className="btn-primary btn">Delete</button> */}
           </div>

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { trpc } from "../utils/trpc";
 import { Plant, PlantTypesEnum } from "../types/plant";
 import { useForm, SubmitHandler } from "react-hook-form";
+import TaskCard from "../components/TaskCard";
 // import { useRouter } from "next/router";
 
 const TaskPage: NextPage = () => {
@@ -11,7 +12,7 @@ const TaskPage: NextPage = () => {
   // const { id } = router.query;
   //   const router = useRouter();
 
-  const plant = trpc.plant.getAll.useQuery();
+  const plants = trpc.plant.getAll.useQuery();
   // const TaskMutation = trpc.plant.add.useMutation();
 
   //   const updatePlantMutation = trpc.plant.update.useMutation();
@@ -34,7 +35,17 @@ const TaskPage: NextPage = () => {
   // };
 
   return (
-    <></>
+    <>
+    <div className="space-y-4 place-content-center">
+
+    <h1 className="text-9xl pt-10">Plants to water</h1>
+    {/* <h1 className="text-9xl">Plant to water</h1> */}
+
+
+      {!!plants &&
+        plants.data?.map((e) => <TaskCard key={e.id} plant={e}></TaskCard>)}
+        </div>
+    </>
     // <form onSubmit={handleSubmit(onSubmit)}>
     //   <input {...register("name")} />
 

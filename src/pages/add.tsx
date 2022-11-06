@@ -60,9 +60,9 @@ const AddPage: NextPage = () => {
   };
 
   return (
-    <>
-      <h1 className="text-9xl">Add Plant</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="space-y-4">
+      <h1 className="text-9xl pt-10">Add Plant</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className=" space-x-4">
         {/* <input {...register("name")} /> */}
         <select {...register("name")} className="select w-full max-w-xs">
           <option disabled selected>
@@ -84,7 +84,7 @@ const AddPage: NextPage = () => {
           Add Plant
         </button>
       </form>
-    </>
+    </div>
 
     //   <div className="flex justify-between">
     //     <img src={plant.data?.image}></img>

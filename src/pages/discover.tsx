@@ -57,28 +57,30 @@ const FindPlantPage: NextPage = () => {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
     },
     {
-      name: "Blah 1",
+      name: "Moderate Maintenance",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
     },
     {
-      name: "Blah 2",
+      name: "High Maintenance",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
     },
-    {
-      name: "Blah 3",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
-    },
+    // {
+    //   name: "Blah 3",
+    //   image:
+    //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
+    // },
   ];
   return (
     <>
-      <h1 className="text-9xl">Categories</h1>
-      <div className="grid grid-cols-4 gap-4">
-        {categories.map((e) => (
-          <CategoryCard key={e.name} category={e}></CategoryCard>
-        ))}
+      <div className="space-y-4">
+        <h1 className="pt-10 text-9xl">Categories</h1>
+        <div className="grid grid-cols-4 gap-4">
+          {categories.map((e) => (
+            <CategoryCard key={e.name} category={e}></CategoryCard>
+          ))}
+        </div>
       </div>
     </>
   );
