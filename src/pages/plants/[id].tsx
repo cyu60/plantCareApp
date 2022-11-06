@@ -53,38 +53,14 @@ const PlantDetailPage: NextPage = () => {
       {!!plant.data && (
         <div className="place-content-center content-center justify-center">
           <Image
+            className="w-full h-48 object-cover"
             src={plant.data.image}
             alt={plant.data.name}
             width={500}
             height={100}
           />
-          <Title>{plant.data.name}</Title>
-          {/* <Image src={plant.data.image} alt={plant.data.name} width={80} height={100} /> */}
-          <div className="stats">
-            <div className="stat">
-              <div className="stat-title">Water frequency?</div>
-              <div className="stat-value">
-                {plant.data.waterFrequencyDescription}
-              </div>
-              {/* <div className="stat-actions">
-                <button className="btn-success btn-sm btn">Change Name</button>
-              </div> */}
-            </div>
-
-            <div className="stat">
-              <div className="stat-title">Category</div>
-              <div className="stat-value">{plant.data.category}</div>
-            </div>
-            <div className="stat">
-              <div className="stat-title">Sunlight</div>
-              <div className="stat-value">
-                {plant.data.sunlight + " hrs/day"}{" "}
-              </div>
-            </div>
-          </div>
-          <CountDown time={5}></CountDown>
-          <>{plant.data.description}</>
           <div className="space-y-4">
+            <Title>{plant.data.name}</Title>
             <form className="space-x-4" onSubmit={handleSubmit(onSubmit)}>
               <input
                 className="input-bordered input-primary input w-full max-w-xs"
@@ -99,15 +75,44 @@ const PlantDetailPage: NextPage = () => {
                 Create Nickname
               </button>
             </form>
-            <button
-              type="button"
-              className="rounded-md bg-red-500 p-2 text-sm text-white transition hover:bg-red-600"
-              onClick={() => deletePlant(Number(id))}
-            >
-              Delete plant
-            </button>
+            {/* <Image src={plant.data.image} alt={plant.data.name} width={80} height={100} /> */}
+            <div className="stats">
+              <div className="stat">
+                <div className="stat-title">Water frequency?</div>
+                <div className="stat-value">
+                  {plant.data.waterFrequencyDescription}
+                </div>
+                {/* <div className="stat-actions">
+                <button className="btn-success btn-sm btn">Change Name</button>
+              </div> */}
+              </div>
+
+              <div className="stat">
+                <div className="stat-title">Category</div>
+                <div className="stat-value">{plant.data.category}</div>
+              </div>
+              <div className="stat">
+                <div className="stat-title">Sunlight</div>
+                <div className="stat-value">
+                  {plant.data.sunlight + " hrs/day"}{" "}
+                </div>
+              </div>
+            </div>
+            <h1 className="text-4xl"> Time since you have last watered me:</h1>
+            <CountDown lastWaterTime={plant.data.lastWaterDate}></CountDown>
+            <h1 className="text-4xl"> Description:</h1>
+            <h1 className="text-3xl">{plant.data.description}</h1>
+            <div className="space-y-4">
+              <button
+                type="button"
+                className="rounded-md bg-red-500 p-2 text-sm text-white transition hover:bg-red-600"
+                onClick={() => deletePlant(Number(id))}
+              >
+                Delete plant
+              </button>
+            </div>
+            {/* <pre>{JSON.stringify(plant.data, null, 2)}</pre> */}
           </div>
-          <pre>{JSON.stringify(plant.data, null, 2)}</pre>
         </div>
       )}
     </>
