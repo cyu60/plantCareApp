@@ -5,6 +5,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { trpc } from "../../utils/trpc";
 import Image from "next/image";
 import Link from "next/link";
+import Title from "../../components/Title";
+import CountDown from "../../components/CountDown";
 
 const PlantDetailPage: NextPage = () => {
   const router = useRouter();
@@ -56,47 +58,55 @@ const PlantDetailPage: NextPage = () => {
             width={500}
             height={100}
           />
-          <h1 className="text-xl">{plant.data.name}</h1>
+          <Title>{plant.data.name}</Title>
           {/* <Image src={plant.data.image} alt={plant.data.name} width={80} height={100} /> */}
-          <div className="stats bg-primary text-primary-content">
+          <div className="stats">
             <div className="stat">
               <div className="stat-title">Water frequency?</div>
               <div className="stat-value">
                 {plant.data.waterFrequencyDescription}
               </div>
-              <div className="stat-actions">
+              {/* <div className="stat-actions">
                 <button className="btn-success btn-sm btn">Change Name</button>
-              </div>
+              </div> */}
             </div>
 
             <div className="stat">
               <div className="stat-title">Category</div>
               <div className="stat-value">{plant.data.category}</div>
-              <div className="stat-actions">
-                <button className="btn-sm btn">Withdrawal</button>
-                <button className="btn-sm btn">deposit</button>
+            </div>
+            <div className="stat">
+              <div className="stat-title">Sunlight</div>
+              <div className="stat-value">
+                {plant.data.sunlight + " hrs/day"}{" "}
               </div>
             </div>
           </div>
-          <></>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("name")} />
+          <CountDown time={5}></CountDown>
+          <>{plant.data.description}</>
+          <div className="space-y-4">
+            <form className="space-x-4" onSubmit={handleSubmit(onSubmit)}>
+              <input
+                className="input-bordered input-primary input w-full max-w-xs"
+                {...register("name")}
+              />
 
+              <button
+                type="submit"
+                className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
+                // onClick={() => updatePlant("test", )}
+              >
+                Create Nickname
+              </button>
+            </form>
             <button
-              type="submit"
-              className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
-              // onClick={() => updatePlant("test", )}
+              type="button"
+              className="rounded-md bg-red-500 p-2 text-sm text-white transition hover:bg-red-600"
+              onClick={() => deletePlant(Number(id))}
             >
-              Update plant
+              Delete plant
             </button>
-          </form>
-          <button
-            type="button"
-            className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
-            onClick={() => deletePlant(Number(id))}
-          >
-            Delete plant
-          </button>
+          </div>
           <pre>{JSON.stringify(plant.data, null, 2)}</pre>
         </div>
       )}
