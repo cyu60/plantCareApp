@@ -6,7 +6,7 @@ import { Plant, PlantTypesEnum } from "../types/plant";
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { useRouter } from "next/router";
 
-const AddPlantPage: NextPage = () => {
+const AddPage: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   //   const router = useRouter();
@@ -91,4 +91,4 @@ const AddPlantPage: NextPage = () => {
   );
 };
 
-export default AddPlantPage;
+export default AddPage;
