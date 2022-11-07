@@ -19,7 +19,7 @@ interface PlantWithId extends Plant {
 }
 
 const Home: NextPage = () => {
-  const [receivedPlant, setReceivedPlant] = useState<PlantWithId | null>(null);
+  // const [receivedPlant, setReceivedPlant] = useState<PlantWithId | null>(null);
   const newName = useRef();
   const addPlantMutation = trpc.plant.add.useMutation();
   const storedPlant = trpc.plant.get.useQuery(1);
@@ -28,52 +28,6 @@ const Home: NextPage = () => {
   const deletePlantMutation = trpc.plant.delete.useMutation();
   const utils = trpc.useContext();
   const router = useRouter();
-
-  interface IFormInput {
-    name: string;
-  }
-
-  const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
-  // const onSubmit: SubmitHandler<IFormInput> = (data) => data.name;
-
-  // need to add some information -- on success invalidate getAll query
-  const invalidatePlants = () => utils.plant.getAll.invalidate();
-
-  // should take in a name
-  const updatePlant = async (newPlantName: string, id: number) => {
-    const updatedPlantWithId = await updatePlantMutation.mutateAsync({
-      name: newPlantName,
-      id,
-    });
-    invalidatePlants();
-    return updatedPlantWithId;
-  };
-  const deletePlant = async (id: number) => {
-    const deletedPlantWithId = await deletePlantMutation.mutateAsync(id);
-    invalidatePlants();
-    return deletePlantMutation;
-  };
-
-  const addPlant = async () => {
-    const plant: Plant = {
-      name: "Plant A",
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdyYszKySst-qKVpolPJHgMVSzr80I80dU_zy-e4c&s",
-      waterFrequencyDescription: "Every 1-2 weeks",
-      waterIntervalDays: 10,
-      sunlight: 5,
-      description: "Cool plant",
-      lastWaterDate: new Date(),
-      category: PlantTypesEnum.Enum.LOW_MAINTENANCE,
-    };
-
-    const plantWithid = await addPlantMutation.mutateAsync({ plant });
-    invalidatePlants();
-    setReceivedPlant(plantWithid);
-  };
-
-  // should have some sort of useEffect hook? detect change in all plans?
 
   return (
     <>

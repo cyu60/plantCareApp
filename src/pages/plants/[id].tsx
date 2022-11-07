@@ -8,6 +8,9 @@ import Link from "next/link";
 import Title from "../../components/Title";
 import CountDown from "../../components/CountDown";
 import { getDisplayCategory } from "../../utils/helper";
+import NicknameForm, {
+  NicknameFormCollapse,
+} from "../../components/forms/NicknameForm";
 
 const PlantDetailPage: NextPage = () => {
   const router = useRouter();
@@ -18,27 +21,6 @@ const PlantDetailPage: NextPage = () => {
   const plant = trpc.plant.get.useQuery(Number(id));
 
   const invalidatePlant = () => utils.plant.get.invalidate();
-
-  interface IFormInput {
-    name: string;
-  }
-
-  const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    // console.log("test submission", plant.data?.id);
-    updatePlant(data.name, Number(id));
-  };
-
-  // should take in a name
-  const updatePlantMutation = trpc.plant.update.useMutation();
-  const updatePlant = async (newPlantName: string, id: number) => {
-    const updatedPlantWithId = await updatePlantMutation.mutateAsync({
-      name: newPlantName,
-      id,
-    });
-    invalidatePlant();
-    return updatedPlantWithId;
-  };
 
   const deletePlantMutation = trpc.plant.delete.useMutation();
   const deletePlant = async (id: number) => {
@@ -60,7 +42,7 @@ const PlantDetailPage: NextPage = () => {
   //       return null;
   //   }
   // };
-  
+
   return (
     // place-content-center
     <>
@@ -75,25 +57,17 @@ const PlantDetailPage: NextPage = () => {
           />
           <div className="space-y-4">
             <Title>{plant.data.name}</Title>
-            <form className="space-x-4" onSubmit={handleSubmit(onSubmit)}>
-              <input
-                className="input-bordered input-primary input w-full max-w-xs"
-                {...register("name")}
-              />
-
-              <button
-                type="submit"
-                className="rounded-md bg-green-500 p-2 text-sm text-white transition hover:bg-green-600"
-                // onClick={() => updatePlant("test", )}
-              >
-                Create Nickname
-              </button>
-            </form>
+            <NicknameFormCollapse>
+              <NicknameForm
+                id={plant.data.id}
+                invalidatePlant={invalidatePlant}
+              ></NicknameForm>
+            </NicknameFormCollapse>
             {/* <Image src={plant.data.image} alt={plant.data.name} width={80} height={100} /> */}
-            <div className="stats">
+            <div className="stats stats-vertical lg:stats-horizontal">
               <div className="stat">
                 <div className="stat-title">Water frequency?</div>
-                <div className="stat-value">
+                <div className="stat-value text-2xl lg:text-4xl">
                   {plant.data.waterFrequencyDescription}
                 </div>
                 {/* <div className="stat-actions">
@@ -103,13 +77,13 @@ const PlantDetailPage: NextPage = () => {
 
               <div className="stat">
                 <div className="stat-title">Category</div>
-                <div className="stat-value">
+                <div className="stat-value text-2xl lg:text-4xl">
                   {getDisplayCategory(plant.data.category)}
                 </div>
               </div>
               <div className="stat">
                 <div className="stat-title">Sunlight</div>
-                <div className="stat-value">
+                <div className="stat-value text-2xl lg:text-4xl">
                   {plant.data.sunlight + " hrs/day"}{" "}
                 </div>
               </div>

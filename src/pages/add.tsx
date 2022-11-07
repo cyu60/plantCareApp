@@ -11,6 +11,10 @@ import { BsFillCameraFill } from "react-icons/bs";
 import Title from "../components/Title";
 // import { useRouter } from "next/router";
 
+interface PlantWithId extends Plant {
+  id: number;
+}
+
 const AddPage: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
@@ -56,7 +60,10 @@ const AddPage: NextPage = () => {
         category: findCategory(selectedPlant.category),
       };
 
-      const plantWithid = await addPlantMutation.mutateAsync({ plant });
+      const plantWithid: PlantWithId = await addPlantMutation.mutateAsync({
+        plant,
+      });
+      return plantWithid;
     }
     // else, should not reach here
     // or plan not recognised
@@ -103,16 +110,16 @@ const AddPage: NextPage = () => {
             {/* <button className="flex space-x-5 rounded-md bg-orange-500 p-5 text-4xl text-white transition hover:bg-orange-600" onClick={() => addPlant(plantsInfo[2].name))}>
               Take a photo!
               </button> */}
-              {/* <button>Take a photo!</button> */}
-            </>
-              )}
-              {/* <button className="flex space-x-5 rounded-md bg-orange-500 p-5 text-4xl text-white transition hover:bg-orange-600" onClick={() => addPlant(plantsInfo[Math.round(Math.random() * plantsInfo.length)].name))}> */}
-              </form>
-              
-              {/* <CameraCapture className="w-full h-screen"></CameraCapture> */}
-              </div>
-              
-              //   type="submit"
+            {/* <button>Take a photo!</button> */}
+          </>
+        )}
+        {/* <button className="flex space-x-5 rounded-md bg-orange-500 p-5 text-4xl text-white transition hover:bg-orange-600" onClick={() => addPlant(plantsInfo[Math.round(Math.random() * plantsInfo.length)].name))}> */}
+      </form>
+
+      {/* <CameraCapture className="w-full h-screen"></CameraCapture> */}
+    </div>
+
+    //   type="submit"
     //   <div className="flex justify-between">
     //     <img src={plant.data?.image}></img>
     //     <h1 className="text-xl">{plant.data?.name}</h1>
