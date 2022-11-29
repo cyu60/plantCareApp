@@ -3,11 +3,7 @@ import Image from "next/image";
 import { Plant } from "../types/plant";
 import Webcam from "react-webcam";
 
-// type CardProps = {
-//   plant: Plant;
-//   // paragraph: string
-// };
-
+// Current disabled
 const CameraCapture: React.FC = () => {
   return (
     <>
@@ -22,20 +18,6 @@ const CameraCapture: React.FC = () => {
           </button> */}
         {/* )} */}
       {/* </Webcam> */}
-
-      {/* <div className="card-compact card w-max bg-base-100 shadow-xl">
-        <figure>
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{plant.name}</h2>
-          <div className="badge-secondary badge">{plant.category}</div>
-
-          <p>{plant.description}</p>
-          <div className="card-actions justify-end">
-            <button className="btn-primary btn">Delete</button>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 };

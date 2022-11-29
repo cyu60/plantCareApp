@@ -3,7 +3,6 @@ import Image from "next/image";
 import { Plant } from "../types/plant";
 import { getDisplayCategory } from "../utils/helper";
 
-
 type PlantDisplayProps = {
   image: string;
   name: string;
@@ -14,7 +13,7 @@ type PlantDisplayProps = {
 const PlantCard: React.FC<{ plant: PlantDisplayProps }> = ({ plant }) => {
   return (
     <>
-      <div className="card-compact card w-max bg-base-100 shadow-xl min-w-full">
+      <div className="card card-compact w-max min-w-full bg-base-100 shadow-xl">
         <figure>
           <Image
             className="h-48 w-full object-cover"
@@ -28,10 +27,7 @@ const PlantCard: React.FC<{ plant: PlantDisplayProps }> = ({ plant }) => {
           <h2 className="card-title">{plant.name}</h2>
           <div className="badge-secondary badge">{plant.category}</div>
 
-          {/* <p>{plant.description}</p> */}
-          <div className="card-actions justify-end">
-            {/* <button className="btn-primary btn">Delete</button> */}
-          </div>
+          <div className="card-actions justify-end"></div>
         </div>
       </div>
     </>

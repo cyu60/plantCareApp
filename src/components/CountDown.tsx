@@ -1,12 +1,5 @@
 import React from "react";
-import Image from "next/image";
-import { Plant } from "../types/plant";
 import { useState } from "react";
-
-// type CardProps = {
-//   plant: Plant;
-//   // paragraph: string
-// };
 
 const CountDown: React.FC<{ lastWaterTime: Date }> = ({ lastWaterTime }) => {
   const [date, setDate] = useState(new Date());

@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { Plant } from "../types/plant";
 
 type CategoryProps = {
   image: string;
@@ -17,9 +16,7 @@ const PlantCard: React.FC<{ category: CategoryProps }> = ({ category }) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{category.name + " Plants"} </h2>
-          {/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
           <div className="card-actions justify-end">
-            {/* <button className="btn-primary btn">Buy Now</button> */}
           </div>
         </div>
       </div>

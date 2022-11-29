@@ -1,10 +1,8 @@
 import React from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { trpc } from "../../utils/trpc";
 import Image from "next/image";
-import Link from "next/link";
 import Title from "../../components/Title";
 import CountDown from "../../components/CountDown";
 import { getDisplayCategory } from "../../utils/helper";
@@ -25,26 +23,11 @@ const PlantDetailPage: NextPage = () => {
   const deletePlantMutation = trpc.plant.delete.useMutation();
   const deletePlant = async (id: number) => {
     const deletedPlantWithId = await deletePlantMutation.mutateAsync(id);
-    // invalidatePlants();
     router.push("/");
-    return deletePlantMutation;
+    return deletedPlantWithId;
   };
 
-  // const getDisplayCategory = (category: string) => {
-  //   switch (category) {
-  //     case "LOW_MAINTENANCE":
-  //       return "Low Maintenance";
-  //     case "MID_MAINTENANCE":
-  //       return "Moderate Maintenance";
-  //     case "HIGH_MAINTENANCE":
-  //       return "High Maintenance";
-  //     default:
-  //       return null;
-  //   }
-  // };
-
   return (
-    // place-content-center
     <>
       {!!plant.data && (
         <div className="place-content-center content-center justify-center">
@@ -63,16 +46,12 @@ const PlantDetailPage: NextPage = () => {
                 invalidatePlant={invalidatePlant}
               ></NicknameForm>
             </NicknameFormCollapse>
-            {/* <Image src={plant.data.image} alt={plant.data.name} width={80} height={100} /> */}
             <div className="stats stats-vertical lg:stats-horizontal">
               <div className="stat">
                 <div className="stat-title">Water frequency?</div>
                 <div className="stat-value text-2xl lg:text-4xl">
                   {plant.data.waterFrequencyDescription}
                 </div>
-                {/* <div className="stat-actions">
-                <button className="btn-success btn-sm btn">Change Name</button>
-              </div> */}
               </div>
 
               <div className="stat">
@@ -101,7 +80,6 @@ const PlantDetailPage: NextPage = () => {
                 Delete plant
               </button>
             </div>
-            {/* <pre>{JSON.stringify(plant.data, null, 2)}</pre> */}
           </div>
         </div>
       )}

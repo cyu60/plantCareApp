@@ -17,11 +17,7 @@ interface PlantWithId extends Plant {
 
 const AddPage: NextPage = () => {
   const router = useRouter();
-  const { id } = router.query;
-  //   const router = useRouter();
 
-  const [showCamera, setShowCamera] = useState<boolean>(false);
-  // const plant = trpc.plant.get.useQuery(Number(id));
   const addPlantMutation = trpc.plant.add.useMutation();
 
   interface IFormInput {
@@ -63,9 +59,6 @@ const AddPage: NextPage = () => {
     }
     // else, should not reach here
     // or plan not recognised
-
-    // invalidatePlants();
-    // setReceivedPlant(plantWithid);
   };
 
   return (

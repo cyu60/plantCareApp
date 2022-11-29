@@ -4,11 +4,6 @@ import { Plant } from "../types/plant";
 import Link from "next/link";
 import { HiMenu } from "react-icons/hi"; // > HiChevronRight 
 
-// type CardProps = {
-//   plant: Plant;
-//   // paragraph: string
-// };
-
 const SideBar: React.FC<{ children: JSX.Element }> = ({ children }) => {
   return (
     <>
@@ -49,22 +44,6 @@ const SideBar: React.FC<{ children: JSX.Element }> = ({ children }) => {
         </div>
       </div>
     </>
-    // <>
-    //   <div className="card-compact card w-max bg-base-100 shadow-xl">
-    //     <figure>
-    //       <Image src={plant.image} alt={plant.name} width={80} height={100} />
-    //     </figure>
-    //     <div className="card-body">
-    //       <h2 className="card-title">{plant.name}</h2>
-    //       <div className="badge-secondary badge">{plant.category}</div>
-
-    //       <p>{plant.description}</p>
-    //       <div className="card-actions justify-end">
-    //         {/* <button className="btn-primary btn">Delete</button> */}
-    //       </div>
-    //     </div>
-    //   </div>
-    // </>
   );
 };
 
